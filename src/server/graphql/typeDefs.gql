@@ -1,0 +1,15 @@
+type Query {
+  votes(limit: Int = 10): [Vote!]!
+}
+
+type Vote {
+  id: ID!,
+  q: String!,
+  o: [VoteOption!]!,
+  nVote: Int!,
+}
+
+type VoteOption {
+  k: String!
+  v: Int!
+}

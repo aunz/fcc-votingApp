@@ -1,0 +1,50 @@
+@import 'normalize.css/normalize.css';
+@import 'basscss/css/basscss.min.css';
+@import './variables.css';
+
+@import './btn.css';
+@import './radio.css';
+
+* {
+  color: #333;
+  font-family: sans-serif;
+  box-sizing: border-box;
+}
+
+
+.color1 { color: var(--color1) }
+.color1-l { color: var(--color1-l) }
+.color1-d { color: var(--color1-d) }
+.color-inherit { color: inherit } /* used in: header */
+.white { color: #fff }
+.silver { color: #aaa }
+
+.bg-color1 { background-color: var(--color1) }
+.bg-currentColor { background-color: currentColor }
+.bg-transparent { background-color: #fff0 }
+
+.border-color1 { border-color: var(--color1) }
+
+.pre { white-space: pre }
+
+.pointer { cursor: pointer }
+.outline-none { outline: none }
+.appearance-none { appearance: none }
+
+.border-color1 { border-color: var(--color1) }
+.border-transparent { border-color: #fff0 }
+.border-currentColor { border-color: currentColor }
+
+
+
+
+
+
+.p025 { padding: 0.25rem } /* used in: VoteChart, VoteResult */
+
+
+
+.break-word { word-break: break-word } /* used in: votecard, votechart, vote result, */
+.x-small { font-size: x-small } /* used in: votecard, voteresult */ 
+.silver { color: silver } /* used in: votecard */
+

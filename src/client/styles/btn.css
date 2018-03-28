@@ -1,0 +1,22 @@
+.btn-base {
+  /*padding-top: 0.75rem;*/
+  /*padding-bottom: 0.75rem;*/
+  min-width: 5.5rem;
+  transition: all 0.5s ease;
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.2;
+  }
+
+}
+
+.btn {
+  &:hover:not(:disabled) { background-color: color(var(--color1) tint(25%)) }
+  &:active:not(:disabled) { background-color: color(var(--color1) tint(50%)) }
+}
+
+.btn-flat {
+  &:hover:not(:disabled) { background-color: color(var(--color1) tint(92.5%)) }
+  &:active:not(:disabled) { background-color: color(var(--color1) tint(77.5%)) }
+
+}
