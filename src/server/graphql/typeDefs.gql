@@ -1,15 +1,42 @@
 type Query {
-  votes(limit: Int = 10): [Vote!]!
+  getPolls(lim: Int = 25, before: Int): [Poll!]!
+  getPoll(id: Int!): Poll
+  votedPolls(token: String): String
+  getClientId: String!
 }
 
-type Vote {
-  id: ID!,
-  q: String!,
-  o: [VoteOption!]!,
-  nVote: Int!,
+type Mutation {
+  createPoll(q: String!, o: [String!]!, token: String!): Int!
+  loginWith(provider: String!, code: String!): LoggedInUser
+  logout(token: String): Int
+  votePoll(id: Int!, key: String!, token: String): Int!
+  addKey(id: Int!, key: [String!]!, token: String!): Int!
 }
 
-type VoteOption {
-  k: String!
-  v: Int!
+type Poll {
+  id: Int!
+  uid: Int!
+  ts: Int
+  q: String!
+  o: String!
+}
+
+# type Poll {
+#   id: Int!
+#   uid: Int!
+#   ts: Int
+#   q: String!
+#   o1: [O!]!
+# }
+
+# type O {
+#   k: String!
+#   v: Int!
+# }
+
+type LoggedInUser {
+  id: Int!
+  name: String
+  gh_name: String
+  token: String!
 }

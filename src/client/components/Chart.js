@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import PropTypes from 'prop-types'
 
-export default class VoteChart extends Component {
+export default class extends Component {
   static propTypes = {
     data: PropTypes.arrayOf(PropTypes.shape({
       k: PropTypes.string,
@@ -11,15 +11,17 @@ export default class VoteChart extends Component {
   }
   constructor(props) {
     super(props)
+    this.ref_svg = React.createRef()
+    this.ref_div = React.createRef()
     this.initSVG()
   }
   componentDidMount() {
     this.draw(this.props.data)
   }
-  componentWillReceiveProps(nextProps) {
-    this.draw(nextProps.data)
+  shouldComponentUpdate(nextProps) {
+    if (JSON.stringify(this.props.data) !== JSON.stringify(nextProps.data)) this.draw(nextProps.data)
+    return false
   }
-  shouldComponentUpdate() { return false }
   initSVG() {
     if (process.env.APP_ENV === 'server') return
     const outerRadius = 180
@@ -39,7 +41,7 @@ export default class VoteChart extends Component {
       arcText: import('d3-shape/src/arc').then(m => {
         return m.default().outerRadius(outerRadius).innerRadius(outerRadius * 0.5)
       }),
-      colors: import('d3-scale/src/category10').then(m => m.default),
+      colors: import('d3-scale-chromatic/src/categorical/category10').then(m => m.default),
       interpolateObject: import('d3-interpolate/src/object').then(m => m.default),
     }
 
@@ -60,7 +62,7 @@ export default class VoteChart extends Component {
       const { selection, pie, arc, arcText, colors, interpolateObject } = d3
 
       this.svg = this.svg || selection
-        .select(() => this.ref_svg)
+        .select(() => this.ref_svg.current)
         .append('g')
         .attr('transform', 'translate(180, 180)')
 
@@ -102,7 +104,7 @@ export default class VoteChart extends Component {
         .attrTween('transform', textTween)
         .on('end', removeOnEnd)
 
-      this.div = this.div || selection.select(() => this.ref_div)
+      this.div = this.div || selection.select(() => this.ref_div.current)
 
       const divs = this.div.selectAll('div')
         .data(data_to, key)
@@ -138,10 +140,12 @@ export default class VoteChart extends Component {
         <svg
           width="100%"
           // height="100%"
+          style={{ maxWidth: '360px' }}
+          className="block mx-auto"
           viewBox="0 0 360 360"
-          ref={el => { this.ref_svg = el }}
+          ref={this.ref_svg}
         />
-        <div ref={el => { this.ref_div = el }} />
+        <div ref={this.ref_div} />
       </Fragment>
     )
   }

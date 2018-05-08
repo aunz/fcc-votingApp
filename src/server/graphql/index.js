@@ -2,10 +2,11 @@ import { graphqlExpress } from 'apollo-server-express'
 import bodyParser from 'body-parser'
 import { makeExecutableSchema } from 'graphql-tools'
 
+import { getAndUpdateUserFromToken } from '~/server/db/dbFunctions'
 import typeDefs from './typeDefs.gql'
 import resolvers from './resolvers'
 
-const schema = makeExecutableSchema({
+export const schema = makeExecutableSchema({
   typeDefs,
   resolvers,
 })
@@ -13,20 +14,26 @@ const schema = makeExecutableSchema({
 export default [
   bodyParser.json(),
   graphqlExpress(function (req, res) {
+    req.user = getAndUpdateUserFromToken(req.headers['x-token']) || {}
     return {
       schema,
-      context: { req },
-      formatError(e) {
-        // console.log('\n\nori err', e.originalError, '\n\n')
-        // console.log('the e', Object.getOwnPropertyNames(e), e.statusCode, e)
-
-        // if (process.env.NODE_ENV === 'production') {
-          // Reflect.deleteProperty(e, 'locations')
-          // e.locations = null
-          // delete e.paths
-        // }
-        return e
-      }
+      context: { req, res },
+      formatError(error) {
+        const { originalError } = error
+        if (originalError && originalError.cusError) {
+          // error.message = originalError.message
+          error.cusError = true
+          error.params = originalError.params
+          error.code = originalError.code
+          // if (originalError.statusCode) res.status(originalError.statusCode)
+        }
+        if (originalError && originalError.name === 'SqliteError') {
+          error.message = 'Internal Server Error'
+          res.status(500)
+        }
+        const { locations, path, ...newErr } = error
+        return newErr
+      },
     }
   })
 ]

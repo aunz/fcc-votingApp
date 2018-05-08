@@ -1,22 +1,20 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { render } from 'react-dom'
 import { ApolloProvider } from 'react-apollo'
 import { BrowserRouter } from 'react-router-dom'
-import gql from 'graphql-tag'
 
 import client from '~/client/apolloClient'
-import App from './App'
+import '~/client/styles/index.css'
+
+import Story from '~/client/components/Polls'
 
 render(
   <ApolloProvider client={client}>
     <BrowserRouter>
-      <App />
+      <Story />
     </BrowserRouter>
   </ApolloProvider>
   , document.getElementById('root')
 )
 
-
-if (module.hot) module.hot.accept()
-
-
+// this is to be rendered in root for integration test

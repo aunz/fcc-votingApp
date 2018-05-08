@@ -4,7 +4,7 @@ db/
 .data/
 temp
 tmp
-
+/.env*
 
 # Created by https://www.gitignore.io/api/node
 

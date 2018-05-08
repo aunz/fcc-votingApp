@@ -1,10 +1,15 @@
 import express from 'express'
+import helmet from 'helmet'
 import graphqlExpress from './graphql'
+
 
 const app = express()
 
 app.disable('x-powered-by')
-app.set('trust proxy', 'loopback')
+app.set('trust proxy', true)
+
+if (process.env.NODE_ENV === 'production') app.use(helmet())
+
 app.use(express.static('./dist/public'))
 
 app.use('/graphql', graphqlExpress)
@@ -25,7 +30,7 @@ Express app listening at http://${this.address().address}:${this.address().port}
 NODE_ENV: ${process.env.NODE_ENV}
 process.pid: ${process.pid}
 root: ${require('path').resolve()}
-'************************************************************`)
+************************************************************`)
 })
 
 export default app

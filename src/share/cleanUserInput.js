@@ -20,7 +20,7 @@ export function cleanArr(arr) {
 // }
 
 export function cleanUserObject(object = {}) {
-  const allowedKeys = ['name', 'email', 'fb', 'gg'] // silently ignore other keys
+  const allowedKeys = ['name', 'email', 'gh', 'fb', 'gg'] // silently ignore other keys
   const newObject = {}
   for (const key of allowedKeys) {
     const str = cleanStr(object[key])
@@ -31,24 +31,19 @@ export function cleanUserObject(object = {}) {
 }
 
 
-export function cleanPollObject({ q, o }, initValue = 0) {
-  // q for question, o for option which is [String, String, ...]
-  // return a new transformed object { q: string: o: [ { k: String, v: Number }, ... ]}
-  // return empty {} if not conformant
-  if (!q || !Array.isArray(o)) return {}
+export function cleanPollObject({ q, o }) {
+  q = q.trim()
+  if (q === '' || o.length === 0) return undefined
 
-  q = cleanStr(q)
-  if (!q) return {}
-
+  const tmpObj = {}
   const newArr = []
-  const tmpObj = {} // for deduplication
   for (let str of o) {
-    str = cleanStr(str)
-    if (str && !tmpObj[str]) newArr.push({ k: str, v: initValue })
+    str = str.trim()
+    if (str !== '' && !tmpObj[str]) newArr.push(str)
     tmpObj[str] = true
   }
 
-  if (newArr.length < 2) return {}
-  return { q, o: JSON.stringify(newArr) }
+  if (newArr.length < 2) return undefined
+  return { q, o: newArr }
 }
 

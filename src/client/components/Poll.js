@@ -1,10 +1,9 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
-import { withRouter } from 'react-router'
 import { Link } from 'react-router-dom'
 
-class VoteCard extends Component {
+export default class extends Component {
   static propTypes = {
     id: PropTypes.string,
     q: PropTypes.string,
@@ -14,13 +13,12 @@ class VoteCard extends Component {
   render() {
     const {
       id, q, nVote,
-      match: { url }, location, history, staticContext,  // eslint-disable-line
       ...rest
     } = this.props
     return (
       <Link
-        className="flex p2 justify text-decoration-none border border-color1"
-        to={url + 'votes/' + id}
+        className="flex m1 p2 justify text-decoration-none border border-color1"
+        to={'/polls/' + (+id).toString(36)}
         {...rest}
       >
         <span className="mr-auto pr2 self-center break-word">
@@ -34,5 +32,3 @@ class VoteCard extends Component {
     )
   }
 }
-
-export default withRouter(VoteCard)

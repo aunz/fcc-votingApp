@@ -1,7 +1,8 @@
+@import './variables.css';
 .btn-base {
   /*padding-top: 0.75rem;*/
   /*padding-bottom: 0.75rem;*/
-  min-width: 5.5rem;
+  /*min-width: 5.5rem;*/
   transition: all 0.5s ease;
   &:disabled {
     cursor: not-allowed;
@@ -18,5 +19,8 @@
 .btn-flat {
   &:hover:not(:disabled) { background-color: color(var(--color1) tint(92.5%)) }
   &:active:not(:disabled) { background-color: color(var(--color1) tint(77.5%)) }
+}
 
+.btn-small {
+  &:hover:not(:disabled) { opacity: 0.5 }
 }

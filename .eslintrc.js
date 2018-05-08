@@ -58,6 +58,10 @@ module.exports = {
       'components': ['Link'],
       'specialLink': ['to']
     }],
-    'function-paren-newline': ['error', 'consistent']
+    'function-paren-newline': ['error', 'consistent'],
+    'import/prefer-default-export': 0,
+    'semi-style': 0,
+    'react/no-unescaped-entities': 0,
+    'react/no-multi-comp': 0,
   }
 }

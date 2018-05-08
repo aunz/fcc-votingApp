@@ -2,7 +2,7 @@ import React, { Fragment, Component } from 'react'
 import { Switch, Route, Link } from 'react-router-dom'
 import { withRouter } from 'react-router'
 
-import Comp from './VoteResult'
+import Comp from './PollResult'
 
 
 const data1 = {

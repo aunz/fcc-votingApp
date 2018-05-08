@@ -1,7 +1,7 @@
 import React, { Fragment, Component } from 'react'
 // import Comp from './Button'
 
-import btn, { btnFlat } from '~/client/styles/btn'
+import { btn, btnFlat } from '~/client/styles/styles'
 
 export default class Header_story extends Component {
   render() {

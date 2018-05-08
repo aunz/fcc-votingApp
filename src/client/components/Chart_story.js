@@ -1,5 +1,5 @@
 import React, { Fragment, Component } from 'react'
-import Comp from './VoteChart'
+import Comp from './Chart'
 
 export default class Story extends Component {
   state = {

@@ -1,5 +1,5 @@
 import React, { Fragment, Component } from 'react'
-import Comp from './VoteCard'
+import Comp from './Poll'
 
 export default class Story extends Component {
   render() {
@@ -18,7 +18,7 @@ export default class Story extends Component {
         <br />
         <Comp id="90xsa" q={longString} nVote={456789} style={{ padding: '1rem' }} />
         <br />
-        <Comp id="/" q="mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm" nVote={4} />
+        <Comp id="/" q={new Array(100).fill('m').join('')} nVote={4} />
       </Fragment>
     )
   }

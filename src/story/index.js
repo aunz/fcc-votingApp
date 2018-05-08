@@ -1,25 +1,28 @@
 import React from 'react'
 import { render } from 'react-dom'
 import { BrowserRouter } from 'react-router-dom'
-
+import { ApolloProvider } from 'react-apollo'
+import client from '~/client/apolloClient'
 
 import '~/client/styles/index.css'
 
 // import Story from '~/client/components/Header_story'
 // import Story from '~/client/components/Button_story'
-import Story from '~/client/components/VoteCard_story'
-// import Story from '~/client/components/VoteChart_story'
-// import Story from '~/client/components/VoteResult_story'
+// import Story from '~/client/components/Poll_story'
+// import Story from '~/client/components/LoginStatus_story'
+// import Story from '~/client/components/Chart_story'
+// import Story from '~/client/components/PollResult_story'
+import Story from '~/client/components/NewPoll_story'
 // import Story from '~/client/App'
 
 
 render(
-  <BrowserRouter
-    basebame="/24/"
-  >
-    <Story />
+  <BrowserRouter>
+    <ApolloProvider client={client}>
+      <Story />
+    </ApolloProvider>
   </BrowserRouter>
   , document.getElementById('root')
 )
 
-module.hot && module.hot.accept()
+if (module.hot) module.hot.accept()
